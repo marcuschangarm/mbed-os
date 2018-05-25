@@ -21,7 +21,7 @@
 #include "nrf_wdt.h"
 #include "nrf_drv_common.h"
 
-/** 
+/**
  *
  * This module provides platform independent access to the system watchdog timer
  * which is an embedded peripheral that will reset the system in the case of
@@ -40,12 +40,12 @@
  */
 static const watchdog_features_t nordic_nrf5_features = {
     .max_timeout = (UINT32_MAX / 32768) * 1000,
-    .update_config = true,
-    .disable_watchdog = true,
+    .update_config = false,
+    .disable_watchdog = false,
 };
 
 /**
- * Internal variable for storing the current 
+ * Internal variable for storing the current
  */
 static uint32_t nordic_nrf5_watchdog_timeout_ms = 0;
 
@@ -135,12 +135,7 @@ void hal_watchdog_kick(void)
  */
 watchdog_status_t hal_watchdog_stop(void)
 {
-    watchdog_status_t result = WATCHDOG_STATUS_OK;
-
-    /* Disable watchdog. */
-    nrf_wdt_int_disable(NRF_WDT_INT_TIMEOUT_MASK);
-
-    return result;
+    return WATCHDOG_STATUS_NOT_SUPPORTED;
 }
 
 /** Get the watchdog timer refresh value

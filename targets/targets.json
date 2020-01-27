@@ -2974,6 +2974,7 @@
             "network-default-interface-type": "ETHERNET"
         },
         "device_name": "LPC54628J512ET180",
+        "bootloader_supported": true,
         "post_binary_hook": {
             "function": "LPCTargetCode.lpc_patch"
         }

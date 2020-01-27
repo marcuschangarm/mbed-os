@@ -48,6 +48,14 @@ ENTRY(Reset_Handler)
 
 __ram_vector_table__ = 1;
 
+#if !defined(MBED_APP_START)
+  #define MBED_APP_START 0
+#endif
+
+#if !defined(MBED_APP_SIZE)
+  #define MBED_APP_SIZE 0x80000
+#endif
+
 #if !defined(MBED_BOOT_STACK_SIZE)
     #define MBED_BOOT_STACK_SIZE 0x400
 #endif
@@ -60,8 +68,8 @@ M_VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x400 : 0x0;
 /* Specify the memory areas */
 MEMORY
 {
-  m_interrupts          (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00000400
-  m_text                (RX)  : ORIGIN = 0x00000400, LENGTH = 0x0007FC00
+  m_interrupts          (RX)  : ORIGIN = MBED_APP_START, LENGTH = 0x00000400
+  m_text                (RX)  : ORIGIN = MBED_APP_START + 0x400, LENGTH = MBED_APP_SIZE - 0x400
   m_data                (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00028000
   m_sramx               (RW)  : ORIGIN = 0x04000000, LENGTH = 0x00008000
   m_usb_sram            (RW)  : ORIGIN = 0x40100000, LENGTH = 0x00002000
